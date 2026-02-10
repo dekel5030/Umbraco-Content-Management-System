@@ -7,3 +7,7 @@ The project comes with a pre-configured SQLite database, so no extra setup is re
 2. **Clone the repo**:
    ```bash
    git clone [https://github.com/dekel5030/Umbraco-Content-Management-System.git](https://github.com/dekel5030/Umbraco-Content-Management-System.git)
+
+The backoffice credentials are:
+Email: dekel5030@gmail.com
+password: Password1234!
