@@ -31,13 +31,14 @@ public class HomePageController : RenderController
 
         string searchTerm = HttpContext.Request.Query["q"].ToString();
 
+        PagedArticleResult searchResult = _articleService.SearchArticles(searchTerm);
+
         var viewModel = new HomePageViewModel(homePage)
         {
             SearchTerm = searchTerm,
-            SearchResults = _articleService.SearchArticles(searchTerm)
+            SearchResults = searchResult.Articles
         };
 
         return CurrentTemplate(viewModel);
-
     }
 }

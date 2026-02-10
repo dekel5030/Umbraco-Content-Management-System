@@ -13,17 +13,29 @@ public class ArticleService : IArticleService
         _contentQuery = contentQuery;
     }
 
-    public IEnumerable<Article> SearchArticles(string searchTerm)
+    public PagedArticleResult SearchArticles(string searchTerm, int page = 1, int pageSize = 10)
     {
-        IEnumerable<Article> allArticles = _contentQuery.ContentAtRoot()
+        IEnumerable<Article> query = _contentQuery.ContentAtRoot()
             .SelectMany(x => x.DescendantsOrSelf<Article>());
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            allArticles = allArticles.Where(x =>
-                x.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(x => x.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase));
         }
 
-        return allArticles.ToList();
+        int totalItems = query.Count();
+
+        var articles = query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return new PagedArticleResult
+        {
+            Articles = articles,
+            TotalItems = totalItems,
+            TotalPages = (int)Math.Ceiling((double)totalItems / pageSize),
+            CurrentPage = page
+        };
     }
 }
