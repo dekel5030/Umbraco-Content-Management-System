@@ -1,0 +1,32 @@
+﻿@using Umbraco.Cms.Core.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<IEnumerable<IPublishedContent>>
+
+<div class="articles-grid">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var item in Model)
+        {
+            @await Html.PartialAsync("ArticleCard", item)
+        }
+    }
+    else
+    {
+        <p class="no-results">No results.</p>
+    }
+</div>
+
+<style>
+    .articles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        padding: 20px 0;
+    }
+
+    .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #666;
+        padding: 40px;
+    }
+</style>

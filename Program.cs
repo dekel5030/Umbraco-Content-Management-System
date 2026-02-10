@@ -1,3 +1,5 @@
+using MyContentSite.ArticleService;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.CreateUmbracoBuilder()
@@ -5,6 +7,8 @@ builder.CreateUmbracoBuilder()
     .AddWebsite()
     .AddComposers()
     .Build();
+
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 WebApplication app = builder.Build();
 

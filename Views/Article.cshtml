@@ -3,4 +3,13 @@
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = null;
+	var image = Model.Value<IPublishedContent>("image");
+}
+@Model.Value("title")
+@Model.Value("authorName")
+@Model.Value("content")
+
+@if (image != null)
+{
+    <img src="@image.Url()" alt="@image.Name" />
 }

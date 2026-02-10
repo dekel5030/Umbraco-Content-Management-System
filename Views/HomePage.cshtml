@@ -1,0 +1,20 @@
+﻿@using MyContentSite.Models
+@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<MyContentSite.Models.HomePageViewModel>
+
+@{
+    Layout = null;
+}
+
+<div>@Model.Page.Value("content")</div>
+
+<div class="search-container">
+    <form method="get">
+        <input type="text" name="q" value="@Model.SearchTerm" placeholder="@Model.SearchPlaceholder" />
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="container">
+    @await Html.PartialAsync("ArticleGrid", Model.SearchResults)
+</div>
